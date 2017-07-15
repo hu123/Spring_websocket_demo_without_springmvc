@@ -26,7 +26,8 @@ public class MyServlet extends HttpServlet {
   
         this.doPost(req, resp);  
     }  
-  
+
+    //将webSocket的地址映射到servlet上去
     @Override  
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)  
             throws ServletException, IOException {  
@@ -34,10 +35,10 @@ public class MyServlet extends HttpServlet {
         ApplicationContext context = WebApplicationContextUtils  
                 .getWebApplicationContext(req.getServletContext());
 
-  
+        //websocket的处理器
         WebSocketHttpRequestHandler handler = new WebSocketHttpRequestHandler(  
                 context.getBean("myHandler", MyHandler.class));  
-  
+        //websocket的握手处理器
         List<HandshakeInterceptor> interceptors = new ArrayList<HandshakeInterceptor>();  
         interceptors.add(context.getBean("myInterceptor",  
                 MyWebSocketHandshakeInterceptor.class));  
